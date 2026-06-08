@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { fetchResource } from './apiClient.js'
 
 function Activities({ apiBase }) {
+  const codespaceActivitiesUrl = `https://${import.meta.env.VITE_CODESPACE_NAME ?? 'your-codespace-name'}-8000.app.github.dev/api/activities`
   const [activities, setActivities] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')

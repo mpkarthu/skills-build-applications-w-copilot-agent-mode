@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { fetchResource } from './apiClient.js'
 
 function Teams({ apiBase }) {
+  const codespaceTeamsUrl = `https://${import.meta.env.VITE_CODESPACE_NAME ?? 'your-codespace-name'}-8000.app.github.dev/api/teams`
   const [teams, setTeams] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')

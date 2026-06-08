@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { fetchResource } from './apiClient.js'
 
 function Workouts({ apiBase }) {
+  const codespaceWorkoutsUrl = `https://${import.meta.env.VITE_CODESPACE_NAME ?? 'your-codespace-name'}-8000.app.github.dev/api/workouts`
   const [workouts, setWorkouts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
