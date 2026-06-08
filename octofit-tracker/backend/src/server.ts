@@ -9,6 +9,9 @@ import { connectDatabase, MONGODB_URI } from './config/database.js';
 const app: Express = express();
 const PORT = 8000;
 const CODESPACE_NAME = process.env.CODESPACE_NAME?.trim();
+
+// Build the base API endpoint for Codespaces when available,
+// otherwise fall back to localhost on port 8000.
 const host = CODESPACE_NAME ? `${CODESPACE_NAME}-8000.app.github.dev` : `localhost:${PORT}`;
 const protocol = CODESPACE_NAME ? 'https' : 'http';
 const apiUrl = `${protocol}://${host}/api`;
