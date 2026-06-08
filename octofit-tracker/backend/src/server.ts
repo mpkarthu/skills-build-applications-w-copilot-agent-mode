@@ -1,10 +1,10 @@
 import express, { type Express, type Request, type Response } from 'express';
-import mongoose from 'mongoose';
 import usersRouter from './routes/users.js';
 import teamsRouter from './routes/teams.js';
 import activitiesRouter from './routes/activities.js';
 import leaderboardRouter from './routes/leaderboard.js';
 import workoutsRouter from './routes/workouts.js';
+import { connectDatabase, MONGODB_URI } from './config/database.js';
 
 const app: Express = express();
 const PORT = 8000;
@@ -12,16 +12,15 @@ const CODESPACE_NAME = process.env.CODESPACE_NAME?.trim();
 const host = CODESPACE_NAME ? `${CODESPACE_NAME}-8000.app.github.dev` : `localhost:${PORT}`;
 const protocol = CODESPACE_NAME ? 'https' : 'http';
 const apiUrl = `${protocol}://${host}/api`;
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/octofit_db';
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Connect to MongoDB
-mongoose.connect(MONGODB_URI, { dbName: 'octofit_db' })
+connectDatabase()
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log(`Connected to MongoDB at ${MONGODB_URI}`);
   })
   .catch((error) => {
     console.error('MongoDB connection error:', error);
